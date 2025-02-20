@@ -1,5 +1,6 @@
 import React from "react";
 import CitiesCard from "../../components/cities-card/cities-card"; 
+import { Logo } from "../../components/logo/logo";
 
 type MainPageProps = {
     rentalOffersCount: number;
@@ -19,15 +20,7 @@ function MainPage({rentalOffersCount} : MainPageProps): React.ReactElement {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href="#">
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="Rent service logo"
-                  width="81"
-                  height="41"
-                />
-              </a>
+            <Logo></Logo>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
