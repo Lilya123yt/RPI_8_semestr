@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { useState } from "react";
+import { AppRoute } from "../../const";
+import { useNavigate } from "react-router-dom"; 
 
 interface PlaceCardProps {
+  id: string;
   title: string;
   price: number;
   type: string;
   rating: number;
-  image: string;
-  premium: boolean;
+  previewImage: string;
+  isPremium: boolean;
 }
 
 function FavoritesCitiesCard({
+  id,
   title,
   price,
   type,
   rating,
-  image,
-  premium,
+  previewImage,
+  isPremium,
 }: PlaceCardProps): React.ReactElement {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(AppRoute.Offer.replace(':id', id)); 
+  };
+
   return (
     <article className="favorites__card place-card">
-      {premium && (
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={image} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
         </a>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -44,12 +54,14 @@ function FavoritesCitiesCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating}%` }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a onClick={handleClick} style={{ cursor: "pointer", textDecoration: "none", color: "inherit" }}>
+            {title}
+          </a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

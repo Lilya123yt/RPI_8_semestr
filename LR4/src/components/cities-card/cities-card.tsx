@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { AppRoute } from "../../const";
+import { Link } from "react-router-dom";
 
 interface CitiesCardProps {
+  id: string;
   title: string;
-  price: number;
   type: string;
-  premium: boolean;
-  rating: number; // В процентах (например, 80 означает 80%)
-  image: string;
+  price: number;
+  isPremium: boolean;
+  previewImage: string;
+  rating: number;
+
 }
 
-function CitiesCard({ title, price, type, premium, rating, image }: CitiesCardProps): React.ReactElement {
+function CitiesCard({ id, title, type, price, isPremium, rating, previewImage }: CitiesCardProps): React.ReactElement {
+  const [, setOfferId] = useState('');
   return (
     <article className="cities__card place-card">
-      {premium && (
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={image} width="260" height="200" alt={title} />
-        </a>
+        <Link to={AppRoute.Offer.replace(':id', id)}>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -37,12 +42,12 @@ function CitiesCard({ title, price, type, premium, rating, image }: CitiesCardPr
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating}%` }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a href={`/offer/${id}`}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

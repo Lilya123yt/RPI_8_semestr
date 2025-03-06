@@ -1,26 +1,22 @@
 import React from "react";
 import CitiesCard from "../../components/cities-card/cities-card"; 
 import { Logo } from "../../components/logo/logo";
+import { FullOffer, OffersList } from "../../types/offer";
+import { CitiesCardList } from "../../components/cities-card-list/cities-card-list";
 
 type MainPageProps = {
-    rentalOffersCount: number;
+  rentalOffersCount: number;
+  offersList: OffersList[]; 
 }
 
-function MainPage({rentalOffersCount} : MainPageProps): React.ReactElement {
-  const offers = [
-    { title: "Beautiful & luxurious apartment at great location", price: 120, type: "Apartment", premium: true, rating: 80, image: "img/apartment-01.jpg" },
-    { title: "Wood and stone place", price: 80, type: "Private room", premium: false, rating: 80, image: "img/room.jpg" },
-    { title: "Canal View Prinsengracht", price: 132, type: "Apartment", premium: false, rating: 80, image: "img/apartment-02.jpg" },
-    { title: "Nice, cozy, warm big bed apartment", price: 180, type: "Apartment", premium: true, rating: 100, image: "img/apartment-03.jpg" },
-  ];
-
+function MainPage({ rentalOffersCount, offersList }: MainPageProps): React.ReactElement {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-            <Logo></Logo>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -49,10 +45,7 @@ function MainPage({rentalOffersCount} : MainPageProps): React.ReactElement {
             <ul className="locations__list tabs__list">
               {["Paris", "Cologne", "Brussels", "Amsterdam", "Hamburg", "Dusseldorf"].map((city, index) => (
                 <li className="locations__item" key={index}>
-                  <a
-                    className={`locations__item-link tabs__item ${city === "Amsterdam" ? "tabs__item--active" : ""}`}
-                    href="#"
-                  >
+                  <a className={`locations__item-link tabs__item ${city === "Amsterdam" ? "tabs__item--active" : ""}`} href="#">
                     <span>{city}</span>
                   </a>
                 </li>
@@ -60,6 +53,7 @@ function MainPage({rentalOffersCount} : MainPageProps): React.ReactElement {
             </ul>
           </section>
         </div>
+        
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -75,30 +69,18 @@ function MainPage({rentalOffersCount} : MainPageProps): React.ReactElement {
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
                   {["Popular", "Price: low to high", "Price: high to low", "Top rated first"].map((option, index) => (
-                    <li
-                      className={`places__option ${index === 0 ? "places__option--active" : ""}`}
-                      tabIndex={0}
-                      key={index}
-                    >
+                    <li className={`places__option ${index === 0 ? "places__option--active" : ""}`} tabIndex={0} key={index}>
                       {option}
                     </li>
                   ))}
                 </ul>
               </form>
+
               <div className="cities__places-list places__list tabs__content">
-                {offers.map(({ title, price, type, premium, rating, image }, index) => (
-                  <CitiesCard
-                    key={index}
-                    title={title}
-                    price={price}
-                    type={type}
-                    premium={premium}
-                    rating={rating}
-                    image={image}
-                  />
-                ))}
+                <CitiesCardList offersList={ offersList }/>
               </div>
             </section>
+            
             <div className="cities__right-section">
               <section className="cities__map map"></section>
             </div>
