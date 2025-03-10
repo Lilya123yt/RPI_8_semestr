@@ -3,6 +3,7 @@ import CitiesCard from "../../components/cities-card/cities-card";
 import { Logo } from "../../components/logo/logo";
 import { FullOffer, OffersList } from "../../types/offer";
 import { CitiesCardList } from "../../components/cities-card-list/cities-card-list";
+import Map from "../../components/map/map";
 
 type MainPageProps = {
   rentalOffersCount: number;
@@ -10,6 +11,14 @@ type MainPageProps = {
 }
 
 function MainPage({ rentalOffersCount, offersList }: MainPageProps): React.ReactElement {
+  const selectedCity = "Amsterdam"; 
+
+  const filteredOffers = offersList.filter((offer) => offer.city.name === selectedCity);
+
+  console.log("Всего предложений:", offersList.length);
+  console.log("Фильтрованные предложения:", filteredOffers.length, filteredOffers);
+  console.log("Рендеринг карты с предложениями:", filteredOffers);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,12 +86,12 @@ function MainPage({ rentalOffersCount, offersList }: MainPageProps): React.React
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                <CitiesCardList offersList={ offersList }/>
+                <CitiesCardList offersList={ filteredOffers }/>
               </div>
             </section>
             
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+                <Map city={filteredOffers[0].city} offers={filteredOffers} />
             </div>
           </div>
         </div>
