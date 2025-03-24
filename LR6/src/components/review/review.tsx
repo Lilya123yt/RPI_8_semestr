@@ -8,7 +8,6 @@ type ReviewItemProps = {
 function ReviewItem({ review }: ReviewItemProps): React.ReactElement {
   const { user, comment, rating, date } = review;
 
-  // Форматируем дату
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",

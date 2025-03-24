@@ -1,8 +1,9 @@
 import { OffersList } from "../../types/offer";
 import CitiesCard from '../cities-card/cities-card';
 
-type CitiesCardListProps = {
+export type CitiesCardListProps = { 
     offersList: OffersList[];
+    onListItemHover: (offerId: string) => void;
 };
 
 function CitiesCardList ({ offersList }: CitiesCardListProps) {
